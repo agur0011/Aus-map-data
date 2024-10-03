@@ -1,0 +1,129 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Length of Stay by State (Yearly)",
+  "width": "container",
+  "height": 500,
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 2016,
+      "bind": {
+        "input": "range",
+        "min": 2010,
+        "max": 2020,
+        "step": 1,
+        "name": "Year: "
+      }
+    },
+    {
+      "name": "Stay_selection",
+      "value": "Less than 1 year",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Less than 1 year", 
+          "1 year", 
+          "2 years", 
+          "3 to 4 years", 
+          "5 to 9 years", 
+          "10 to 19 years", 
+          "20 years or more"
+        ],
+        "name": "Length of Stay: "
+      }
+    },
+    {
+      "name": "zoom_level",
+      "value": 30000,
+      "bind": {
+        "input": "range",
+        "min": 3500,
+        "max": 60000,
+        "step": 100,
+        "name": "Zoom: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator",
+    "scale": {"expr": "zoom_level"}
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/STE_2016_AUST.json",
+        "format": {"type": "topojson", "feature": "STE_2016_AUST"}
+      },
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.STE_NAME16",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#ddd",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "tooltip": {"field": "note"}
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Length%20of%20stay%20(CSV).csv"
+      },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/STE_2016_AUST.json",
+              "format": {
+                "type": "topojson",
+                "feature": "STE_2016_AUST"
+              }
+            },
+            "key": "properties.STE_NAME16"
+          },
+          "as": "geo"
+        },
+        {
+          "filter": "datum.Year == Year_selection && datum.length_of_stay == Stay_selection"
+        },
+        {
+          "calculate": "datum.length_of_stay == 'Less than 1 year' ? 0.5 : datum.length_of_stay == '1 year' ? 1 : datum.length_of_stay == '2 years' ? 2 : datum.length_of_stay == '3 to 4 years' ? 3.5 : datum.length_of_stay == '5 to 9 years' ? 7 : datum.length_of_stay == '10 to 19 years' ? 15 : 20",
+          "as": "length_of_stay_numeric"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#fff",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "shape": {"field": "geo", "type": "geojson"},
+        "color": {
+          "field": "length_of_stay_numeric",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0.5, 20],
+            "scheme": "reds"
+          },
+          "legend": {"title": "Length of Stay (Years)"}
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {
+            "field": "length_of_stay",
+            "type": "ordinal",
+            "title": "Length of Stay"
+          },
+          {"field": "Year", "type": "quantitative", "title": "Year"}
+        ]
+      }
+    }
+  ],
+  "config": {}
+}
