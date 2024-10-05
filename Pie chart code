@@ -1,0 +1,27 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Dwelling%20satisfaction%20(CSV).csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "filter": "datum['Dwelling structure'] == 'Separate house'"
+    },
+    {
+      "fold": [
+        "Very satisfied",
+        "Satisfied",
+        "Neither satisfied or dissatisfied",
+        "Dissatisfied or Very dissatisfied"
+      ],
+      "as": ["Satisfaction", "Percentage"]
+    }
+  ],
+  "mark": {"type": "arc", "tooltip": true},
+  "encoding": {
+    "theta": {"field": "Percentage", "type": "quantitative"},
+    "color": {"field": "Satisfaction", "type": "nominal", "title": "Satisfaction Level"}
+  },
+  "title": "Dwelling Satisfaction for Separate House"
+}
