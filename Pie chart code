@@ -6,9 +6,6 @@
   },
   "transform": [
     {
-      "filter": "datum['Dwelling structure'] == 'Separate house'"
-    },
-    {
       "fold": [
         "Very satisfied",
         "Satisfied",
@@ -21,7 +18,27 @@
   "mark": {"type": "arc", "tooltip": true},
   "encoding": {
     "theta": {"field": "Percentage", "type": "quantitative"},
-    "color": {"field": "Satisfaction", "type": "nominal", "title": "Satisfaction Level"}
+    "color": {
+      "field": "Satisfaction",
+      "type": "nominal",
+      "title": "Satisfaction Level"
+    },
+    "facet": {
+      "field": "Dwelling structure",
+      "type": "nominal",
+      "title": "Dwelling Type"
+    },
+    "opacity": {
+      "condition": {"selection": "dwellingType", "value": 1},
+      "value": 0.2
+    }
   },
-  "title": "Dwelling Satisfaction for Separate House"
+  "selection": {
+    "dwellingType": {
+      "type": "multi",
+      "fields": ["Satisfaction"],
+      "bind": "legend"
+    }
+  },
+  "title": "Dwelling Satisfaction Across Different Dwelling Types"
 }
