@@ -9,4 +9,4 @@ vegaEmbed("#scatterplot", vg_2).then(function(result) {
 }).catch(console.error);
 
 var vg_3 = "Pie chart code.json";
-vegaEmbed("#piechart", vg_2).then(function(result) {
+vegaEmbed("#piechart", vg_3).then(function(result) {
