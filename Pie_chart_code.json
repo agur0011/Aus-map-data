@@ -30,7 +30,7 @@
     },
     "opacity": {
       "condition": {"selection": "dwellingType", "value": 1},
-      "value": 0.2
+      "value": 1
     }
   },
   "selection": {
