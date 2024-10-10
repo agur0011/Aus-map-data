@@ -44,7 +44,7 @@
   "selection": {
     "selected": {
       "type": "single",
- "fields": ["Type of repair"],
+      "fields": ["Type of repair"],
       "bind": {
         "input": "select",
         "options": [
@@ -67,9 +67,7 @@
       "type": "quantitative",
       "legend": {"title": "Percentage of Repairs"},
       "scale": {
-        "type": "linear",
-        "domain": [0, 100],
-        "range": ["lightblue", "darkblue", "navyblue"]
+        "scheme": "teals"
       }
     },
     "tooltip": [
