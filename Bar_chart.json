@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Interactive grouped bar chart for comparing rental tenure types across Australian states.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Rental%20agreeements%20(CSV).csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "fold": [
+        "6 month", "12 month", "Other fixed period", 
+        "Month by month", "Indefinite tenure", 
+        "No formal lease or tenure"
+      ],
+      "as": ["Tenure", "Percentage"]
+    }
+  ],
+  "vconcat": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "STATES",
+          "type": "nominal",
+          "axis": {"title": "State"}
+        },
+        "y": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "axis": {"title": "Percentage (%)"}
+        },
+        "color": {
+          "field": "Tenure",
+          "type": "nominal",
+          "legend": {
+            "title": "Tenure Type",
+            "symbolType": "square"
+          }
+        },
+        "opacity": {
+          "condition": {"param": "highlight", "value": 1},
+          "value": 1
+        }
+      },
+      "params": [
+        {
+          "name": "highlight",
+          "select": {"type": "point", "fields": ["Tenure"]},
+          "bind": "legend"
+        }
+      ]
+    },
+    {
+      "transform": [
+        {"filter": {"param": "highlight"}}
+      ],
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "STATES",
+          "type": "nominal",
+          "axis": {"title": "State"}
+        },
+        "y": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "axis": {"title": "Percentage (%)"}
+        },
+        "color": {
+          "field": "Tenure",
+          "type": "nominal",
+          "legend": null
+        }
+      }
+    }
+  ]
+}
