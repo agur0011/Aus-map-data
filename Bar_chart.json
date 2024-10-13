@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Interactive grouped bar chart for comparing rental tenure types across Australian states.",
+  "title": "Rental agreements in each state",
   "data": {
     "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Rental%20agreeements%20(CSV).csv",
     "format": {
@@ -15,11 +15,15 @@
         "No formal lease or tenure"
       ],
       "as": ["Tenure", "Percentage"]
+    },
+    {
+      "calculate": "'Percentage: ' + datum.Percentage + '%'",
+      "as": "PercentageTooltip"
     }
   ],
   "vconcat": [
     {
-      "mark": "bar",
+      "mark": {"type": "bar", "tooltip": true},
       "encoding": {
         "x": {
           "field": "STATES",
@@ -42,7 +46,8 @@
         "opacity": {
           "condition": {"param": "highlight", "value": 1},
           "value": 1
-        }
+        },
+        "tooltip": {"field": "PercentageTooltip", "type": "nominal"}
       },
       "params": [
         {
@@ -56,7 +61,7 @@
       "transform": [
         {"filter": {"param": "highlight"}}
       ],
-      "mark": "bar",
+      "mark": {"type": "bar", "tooltip": true},
       "encoding": {
         "x": {
           "field": "STATES",
@@ -72,7 +77,8 @@
           "field": "Tenure",
           "type": "nominal",
           "legend": null
-        }
+        },
+        "tooltip": {"field": "PercentageTooltip", "type": "nominal"}
       }
     }
   ]
