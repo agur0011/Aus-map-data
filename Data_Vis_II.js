@@ -19,6 +19,6 @@ vegaEmbed("#barchart1", vg_4).then(function(result) {
 }).catch(console.error);
 
 var vg_5 = "./Deposit_Bar.json";
-vegaEmbed("#depositchart1", vg_5).then(function(result) {
+vegaEmbed("#depositchart", vg_5).then(function(result) {
 
 }).catch(console.error);
