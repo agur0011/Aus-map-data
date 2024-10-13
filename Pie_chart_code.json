@@ -29,16 +29,19 @@
       "title": "Dwelling Type"
     },
     "opacity": {
-      "condition": {"selection": "dwellingType", "value": 1},
-      "value": 1
+      "condition": {"param": "legendSelect", "value": 1},
+      "value": 0.2
     }
   },
-  "selection": {
-    "dwellingType": {
-      "type": "multi",
-      "fields": ["Satisfaction"],
+  "params": [
+    {
+      "name": "legendSelect",
+      "select": {
+        "type": "point",
+        "fields": ["Satisfaction"]
+      },
       "bind": "legend"
     }
-  },
+  ],
   "title": "Dwelling Satisfaction Across Different Dwelling Types"
 }
