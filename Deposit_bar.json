@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Grouped bar chart showing deposit percentage categories by state.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Deposit%20(CSV).csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "fold": [
+        "Less than 10%", "10% to less than 20%", "20% or more"
+      ],
+      "as": ["Percentage Category", "Percentage"]
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "States",
+      "type": "nominal",
+      "axis": {"title": "State"}
+    },
+    "xOffset": {
+      "field": "Percentage Category",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "Percentage",
+      "type": "quantitative",
+      "axis": {"title": "Percentage (%)"}
+    },
+    "color": {
+      "field": "Percentage Category",
+      "type": "nominal",
+      "scale": {
+        "scheme": "viridis"
+      },
+      "legend": {"title": "Deposit Percentage Category"}
+    },
+    "tooltip": [
+      {"field": "Percentage", "type": "quantitative", "title": "Percentage"}
+    ]
+  }
+}
