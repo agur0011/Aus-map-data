@@ -15,10 +15,6 @@
         "No formal lease or tenure"
       ],
       "as": ["Tenure", "Percentage"]
-    },
-    {
-      "calculate": "'Percentage: ' + datum.Percentage + '%'",
-      "as": "PercentageTooltip"
     }
   ],
   "vconcat": [
@@ -47,7 +43,9 @@
           "condition": {"param": "highlight", "value": 1},
           "value": 1
         },
-        "tooltip": {"field": "PercentageTooltip", "type": "nominal"}
+        "tooltip": [
+          {"field": "Percentage", "type": "quantitative", "title": "Percentage", "format": ".1f"}
+        ]
       },
       "params": [
         {
@@ -78,7 +76,9 @@
           "type": "nominal",
           "legend": null
         },
-        "tooltip": {"field": "PercentageTooltip", "type": "nominal"}
+        "tooltip": [
+          {"field": "Percentage", "type": "quantitative", "title": "Percentage", "format": ".1f"}
+        ]
       }
     }
   ]
