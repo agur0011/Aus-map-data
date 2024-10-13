@@ -36,6 +36,9 @@
         "scheme": "viridis"
       },
       "legend": {"title": "Deposit Percentage Category"}
-    }
+    },
+    "tooltip": [
+      {"field": "Percentage", "type": "quantitative", "title": "Percentage"}
+    ]
   }
 }
