@@ -1,47 +1,85 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Rental agreements in each state",
   "data": {
-    "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Dwelling%20satisfaction%20(CSV).csv",
-    "format": {"type": "csv"}
+    "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Rental%20agreeements%20(CSV).csv",
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
     {
       "fold": [
-        "Very satisfied",
-        "Satisfied",
-        "Neither satisfied or dissatisfied",
-        "Dissatisfied or Very dissatisfied"
+        "6 month", "12 month", "Other fixed period", 
+        "Month by month", "Indefinite tenure", 
+        "No formal lease or tenure"
       ],
-      "as": ["Satisfaction", "Percentage"]
+      "as": ["Tenure", "Percentage"]
     }
   ],
-  "mark": {"type": "arc", "tooltip": true},
-  "encoding": {
-    "theta": {"field": "Percentage", "type": "quantitative"},
-    "color": {
-      "field": "Satisfaction",
-      "type": "nominal",
-      "title": "Satisfaction Level"
-    },
-    "facet": {
-      "field": "Dwelling structure",
-      "type": "nominal",
-      "title": "Dwelling Type"
-    },
-    "opacity": {
-      "condition": {"param": "legendSelect", "value": 1},
-      "value": 0.2
-    }
-  },
-  "params": [
+  "vconcat": [
     {
-      "name": "legendSelect",
-      "select": {
-        "type": "point",
-        "fields": ["Satisfaction"]
+      "mark": {"type": "bar", "tooltip": true},
+      "encoding": {
+        "x": {
+          "field": "STATES",
+          "type": "nominal",
+          "axis": {"title": "State"}
+        },
+        "y": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "axis": {"title": "Percentage (%)"}
+        },
+        "color": {
+          "field": "Tenure",
+          "type": "nominal",
+          "legend": {
+            "title": "Tenure Type",
+            "symbolType": "square"
+          }
+        },
+        "opacity": {
+          "condition": {"param": "highlight", "value": 1},
+          "value": 1
+        },
+        "tooltip": [
+          {"field": "Percentage", "type": "quantitative", "title": "Percentage", "format": ".1f"}
+        ]
       },
-      "bind": "legend"
+      "params": [
+        {
+          "name": "highlight",
+          "select": {"type": "point", "fields": ["Tenure"]},
+          "bind": "legend"
+        }
+      ]
+    },
+    {
+      "transform": [
+        {"filter": {"param": "highlight"}}
+      ],
+      "mark": {"type": "bar", "tooltip": true},
+      "encoding": {
+        "x": {
+          "field": "STATES",
+          "type": "nominal",
+          "axis": {"title": "State"}
+        },
+        "y": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "axis": {"title": "Percentage (%)"}
+        },
+        "color": {
+          "field": "Tenure",
+          "type": "nominal",
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "Percentage", "type": "quantitative", "title": "Percentage", "format": ".1f"}
+        ]
+      }
     }
-  ],
-  "title": "Dwelling Satisfaction Across Different Dwelling Types"
+  ]
 }
