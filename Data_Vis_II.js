@@ -1,4 +1,4 @@
-var vg_1 = "./VegaLite Code (MAP).json";
+var vg_1 = "./VegaLite_Map.json";
 vegaEmbed("#choropleth_map", vg_1).then(function(result) {
 
 }).catch(console.error);
