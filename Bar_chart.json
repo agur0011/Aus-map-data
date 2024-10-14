@@ -1,6 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Rental agreements in each state",
   "data": {
     "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Rental%20agreeements%20(CSV).csv",
     "format": {
