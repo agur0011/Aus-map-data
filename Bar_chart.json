@@ -69,7 +69,7 @@
         "y": {
           "field": "Percentage",
           "type": "quantitative",
-          "axis": {"title": "Percentage"}
+          "axis": {"title": "Percentage (%)"}
         },
         "color": {
           "field": "Tenure",
