@@ -6,76 +6,168 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
   <script src="Data_Vis_II.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      color: #333;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-strip {
+      text-align: center;
+      background-color: #005b96;
+      color: #ffffff;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .header-strip p {
+      font-size: 1.1em;
+      color: #e0e0e0;
+      margin-top: 10px;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #005b96;
+      font-family: 'Montserrat', sans-serif;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .container {
+      padding: 20px 0;
+    }
+
+    .visualization-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      background-color: #e3f2fd;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .visualization {
+      flex: 3;
+      max-width: 60%;
+      margin-right: 30px;
+    }
+
+    .visualization-text {
+      flex: 2;
+      font-size: 1.15em;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .content-footer {
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.95em;
+      color: #333;
+      border-top: 1px solid #ddd;
+    }
+
+    .content-footer a {
+      color: #005b96;
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
-  <center>
-    <h1>Housing conditions and Mobility</h1>
-  </center>
 
-  <center>
-    <!-- Container for the choropleth map -->
-    <div id="choropleth_map"></div>
-  
-    <!-- Description for the choropleth map -->
-  <p>This choropleth map shows various repairs and the percentage of homes which are reported to require each type of repair. It can help inform decision making regarding what to inspect in a home within each state.</p>
-  </center>
-  <p style="margin-bottom: 30px;"></p>
+  <div class="page-wrapper">
+    <div class="header-strip">
+      <h1>Housing Conditions and Mobility</h1>
+      <p>Exploring housing repairs, mobility, and living satisfaction in Australia</p>
+    </div>
 
-  
-  
-  <center>
-    <!-- Container for the scatterplot -->
-    <div id="scatterplot"></div>
+    <!-- Container for the choropleth map and its description -->
+    <div class="container">
+      <h2>Housing Repairs by State</h2>
+      <div class="visualization-container">
+        <div id="choropleth_map" class="visualization"></div>
+        <div class="visualization-text">
+          <p>This choropleth map shows various repairs and the percentage of homes that require each type of repair. It can help inform decision-making regarding what to inspect in a home within each state.</p>
+        </div>
+      </div>
+    </div>
 
-    <!-- Description for the scatterplot -->
-    <p>Please interact with the legend to select a duration for years of stay. This way it is obvious which to compare which states have more residents in shorter term or longer term living situations. 
-      This can be useful to make a decision regarding moving for either work or family reasons.</p>
-  </center>
-  <p style="margin-bottom: 10px;"></p>
+    <!-- Container for the scatterplot and its description -->
+    <div class="container">
+      <h2>Resident Mobility by State</h2>
+      <div class="visualization-container">
+        <div id="scatterplot" class="visualization"></div>
+        <div class="visualization-text">
+          <p>Please interact with the legend to select a duration for years of stay. This allows comparison between states with more short-term and long-term residents, aiding in decisions about relocating for work or family reasons.</p>
+        </div>
+      </div>
+    </div>
 
-  <center>
-    <!-- Container for the piechart -->
-    <div id="piechart"></div>
-    
-    <!-- Description for the piechart -->
-    <p>The legend for this pie chart can also be interacted with. Satisfaction with where an individual lives is quite an important metric. 
-      Considering a choice to live between each dwelling type, the highest satisfaction is with Semi-detached/row or terrace house/townhouses at 41.3%.<p> 
-    <p>When deciding on a property type to purchase or rent this high satisfaction level can be representative of housing types which are less susceptible to damage which causes inconvenience.<p>
-  </center>
-  <p style="margin-bottom: 10px;"></p>
+    <!-- Container for the piechart and its description -->
+    <div class="container">
+      <h2>Housing Satisfaction by Dwelling Type</h2>
+      <div class="visualization-container">
+        <div id="piechart" class="visualization"></div>
+        <div class="visualization-text">
+          <p>Housing satisfaction is an important metric. The highest satisfaction is with semi-detached/row or terrace house/townhouses at 41.3%. This metric can inform decisions on property types less prone to damage and inconvenience.</p>
+        </div>
+      </div>
+    </div>
 
-  <center>
-    <!-- Container for the barchart1 -->
-    <div id="barchart1"></div>
+    <!-- Container for the barchart1 and its description -->
+    <div class="container">
+      <h2>Rental Agreement Types by State</h2>
+      <div class="visualization-container">
+        <div id="barchart1" class="visualization"></div>
+        <div class="visualization-text">
+          <p>12-month rental agreements are the most common, especially in Tasmania, representing 61.8% of rental agreements. Short-term rentals are prevalent in the Northern Territory (18.5%) and Queensland (16.5%), which could guide those seeking temporary housing.</p>
+        </div>
+      </div>
+    </div>
 
-    <!-- Description for the barchart1 -->
-    <p>The legend for tenure type can be interacted with. Once selected it will show a comparison of the percentages on the bottom graph for the selected tenure type for easier comparison. 
-      When viewing this graph there is some incomplete data which is why the values do not add to 100%.<p>
-    <p>From this combination of graphs it is obvious that 12 month rental agreements are the most common, especially in Tasmania representing 61.8% of the collected rental agreement types. 
-    Short term rentals (6 months) appear to be most common in the Northern Territory (18.5%) and Queensland (16.5%).<p> 
-    <p>This could inform decision making looking for shorter term rentals for positions which may be contracted and require you to only be in the state for a shorter period of time.<p>
-    
-  </center>
-  <p style="margin-bottom: 10px;"></p>
+    <!-- Container for the depositchart and its description -->
+    <div class="container">
+      <h2>House Deposit Requirements by State</h2>
+      <div class="visualization-container">
+        <div id="depositchart" class="visualization"></div>
+        <div class="visualization-text">
+          <p>In Western Australia, 45.9% of houses are bought with a deposit under 10%, making it favorable for young buyers. This chart helps prospective buyers understand state-specific deposit requirements.</p>
+        </div>
+      </div>
+    </div>
 
-  <center>
-    <!-- Container for the depositchart -->
-    <div id="depositchart"></div>
+    <!-- Author and source information -->
+    <div class="content-footer">
+      <p>Author: Anirudh Gururaj</p>
+      <p>ID: 32515316</p>
+      <p>Dataset(s) source: <a href="https://www.abs.gov.au/statistics/people/housing/housing-mobility-and-conditions/2019-20" target="_blank">Australian Bureau of Statistics</a></p>
+    </div>
+  </div>
+</body>
 
-    <!-- Description for the depositchart -->
-    <p>For this barchart there is a tooltip which can be used to see the specific percentage for deposit percentages and which category they belong in. 
-      For those that will be looking at buying property it is quite important to understand what is required for a deposit. <p>
-        <p>In this case for the younger generation looking for a lower deposit may be advantageous, which is the case in Western Australia with 45.9% of house being bought with a deposit worth less than 10%.<p>
-    
-  </center>
-  <p style="margin-bottom: 10px;"></p>
-
-
-    <!-- Sources -->
-  <p>Author: Anirudh Gururaj<p>
-  <p>ID: 32515316</p>
-  <p>Dataset(s) source: https://www.abs.gov.au/statistics/people/housing/housing-mobility-and-conditions/2019-20<p>
-  
- </body>
 </html>
