@@ -1,5 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Resident Mobility by State and Years of Stay",
   "data": {
     "url": "https://raw.githubusercontent.com/agur0011/Aus-map-data/refs/heads/main/Length%20of%20stay%20(CSV).csv",
     "format": {
@@ -45,6 +46,10 @@
         "symbolSize": 150
       }
     },
+    "opacity": {
+      "condition": {"selection": "YearsOfStay", "value": 1},
+      "value": 0.2
+    },
     "tooltip": [
       {"field": "Percentage", "type": "quantitative", "title": "Percentage"}
     ]
@@ -65,56 +70,10 @@
   ],
   "selection": {
     "YearsOfStay": {
-      "type": "multi",   
+      "type": "multi",
       "fields": ["Years of Stay"],
-      "bind": "legend"   
+      "bind": "legend"
     }
-  },
-  "encoding": {
-    "x": {
-      "field": "States",
-      "type": "nominal",
-      "axis": {
-        "labelAngle": -45,
-        "labelFontSize": 12,
-        "titleFontSize": 14,
-        "title": "States",
-        "labelPadding": 10
-      },
-      "title": "States",
-      "sort": null
-    },
-    "y": {
-      "field": "Percentage",
-      "type": "quantitative",
-      "title": "Percentage"
-    },
-    "color": {
-      "field": "Years of Stay",
-      "type": "nominal",
-      "title": "Years of Stay",
-      "sort": [
-        "Less than 1 year",
-        "1 year",
-        "2 years",
-        "3 to 4 years",
-        "5 to 9 years",
-        "10 to 19 years",
-        "20 years or more"
-      ],
-      "legend": {
-        "labelFontSize": 14,
-        "titleFontSize": 16,
-        "symbolSize": 150
-      }
-    },
-    "opacity": {
-      "condition": {"selection": "YearsOfStay", "value": 1},
-      "value": 0.2
-    },
-    "tooltip": [
-      {"field": "Percentage", "type": "quantitative", "title": "Percentage"}
-    ]
   },
   "config": {
     "axisX": {
